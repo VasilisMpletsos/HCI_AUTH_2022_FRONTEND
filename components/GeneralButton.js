@@ -1,25 +1,18 @@
 import React from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity, Image, Alert } from 'react-native';
 
-const onButtonClick = (buttonName) => {
-  let text = buttonName +' pressed';
-  Alert.alert(text);
-}
-
 export default function GeneralButton(props) {
   return (
-    <View>
-      <TouchableOpacity style={styles.button} onPress={() => onButtonClick(props.text)}>
-        <Text style={styles.buttonText}>{props.text}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity style={styles.button} onPress={props.onPress}>
+      <Text style={styles.buttonText}>{props.text}</Text>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button:{
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
