@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeView from './views/HomeView';
 import ProfileView from './views/ProfileView';
 import ContactsView from './views/ContactsView';
+import CameraView from './views/CameraView';
 import GeneralButton from './components/GeneralButton';
 
 const Stack = createNativeStackNavigator();
@@ -16,6 +17,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeView}/>
         <Stack.Screen name="Profile" component={ProfileView}/>
         <Stack.Screen name="Contacts" component={ContactsView}/>
+        <Stack.Screen name="Camera" component={CameraView}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

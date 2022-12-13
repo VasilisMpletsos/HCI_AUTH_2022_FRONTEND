@@ -1,5 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import GeneralButton from '../components/GeneralButton';
 
 
@@ -7,7 +6,7 @@ export default ProfileView = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text>
-        Hello i am Jane
+        Welcome to Profile View
       </Text>
     </View>
     );

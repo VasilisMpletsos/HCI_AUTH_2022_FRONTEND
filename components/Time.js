@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const TimeView = () => {
+const Time = () => {
 
   const [time, setTime] = useState('')
 
@@ -27,7 +27,9 @@ const TimeView = () => {
   }
 
   useEffect(()=>{
-    setInterval(getTime,1000)
+    getTime();
+    const timeInterval = setInterval(getTime,1000)
+    return () => clearInterval(timeInterval)
   },[])
 
   return (
@@ -46,4 +48,4 @@ const TimeView = () => {
     );
 }
 
-export default TimeView;
+export default Time;

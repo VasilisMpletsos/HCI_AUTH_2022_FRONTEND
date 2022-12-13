@@ -1,8 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import GeneralButton from '../components/GeneralButton';
-import BatteryView from './BatteryView';
-import TimeView from './TimeView';
+import BatteryComponent from '../components/BatteryComponent';
+import CameraView from './CameraView';
+import Time from '../components/Time';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -28,10 +29,10 @@ export default HomeView = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={{flex:1}}>
-        <BatteryView/>
+        <BatteryComponent/>
       </View>
       <View style={{flex:1}}>
-        <TimeView/>
+        <Time/>
       </View>
       <View style={styles.buttons}> 
         <View style={styles.row}>
@@ -54,6 +55,9 @@ export default HomeView = ({navigation}) => {
           />
           <GeneralButton
             text="ΚΑΜΕΡΑ"
+            onPress={() =>
+              navigation.navigate('Camera')
+            }
           />
         </View>
       </View>

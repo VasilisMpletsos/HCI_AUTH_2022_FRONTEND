@@ -18,25 +18,27 @@ const styles = StyleSheet.create({
   }
 });
 
-const BatteryView = () => {
+const BatteryComponent = () => {
 
-  const [battery, setBattery] = useState(0)
-
-  Battery.addBatteryLevelListener(({ batteryLevel }) => {
-    setBattery();
-    console.log('batteryLevel changed!', batteryLevel);
-  });
-
-  const getBattery = async() => {
-    let batteryLevel = await Battery.getBatteryLevelAsync();
-    batteryLevel *= 100
-    batteryLevel = Math.round(batteryLevel,2)
-    setBattery(batteryLevel)
+  const [battery, setBattery] = useState(100)
+  
+  const getBatteryLevel = async () => {
+    let battery = await Battery.getBatteryLevelAsync();
+    battery *=  100;
+    battery = Math.round(battery,2)
+    setBattery(battery)
   }
 
-  useEffect(()=>{
-    setInterval(getBattery,5000)
-  },[])
+  const subscribe = () => {
+    getBatteryLevel();
+  };
+
+  const batteryInterval = setInterval(getBatteryLevel,1000);
+
+  useEffect(() => {
+    subscribe();
+    return () => clearInterval(batteryInterval);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -54,4 +56,4 @@ const BatteryView = () => {
     );
 }
 
-export default BatteryView;
+export default BatteryComponent;
