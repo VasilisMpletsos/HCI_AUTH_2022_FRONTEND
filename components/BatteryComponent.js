@@ -1,22 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import * as Battery from 'expo-battery';
-import { StyleSheet, Text, View } from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: '400'
-  },
-  highlight:{
-    fontSize: 40,
-    fontWeight: '600'
-  }
-});
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 const BatteryComponent = () => {
 
@@ -42,10 +26,8 @@ const BatteryComponent = () => {
 
   return (
     <View style={styles.container}>
-     <View>
-        <Text style={styles.text}>
-          Battery Percentage
-        </Text>
+     <View style={styles.imageContainer}>
+        <Image source={require('../assets/battery.png')} style={styles.image}/>
       </View>
       <View>
         <Text style={styles.highlight}>
@@ -55,5 +37,25 @@ const BatteryComponent = () => {
     </View>
     );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageContainer:{
+    flex: 1,
+    width: '100%',
+  },
+  image:{
+    width: '100%',
+    flex: 1,
+  },
+  highlight:{
+    fontSize: 40,
+    fontWeight: '600'
+  }
+});
 
 export default BatteryComponent;

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   buttons:{
     flex: 3,
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   row: {
     flexDirection: 'row',
