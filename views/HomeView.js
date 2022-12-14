@@ -1,7 +1,6 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Linking } from 'react-native';
 import GeneralButton from '../components/GeneralButton';
 import BatteryComponent from '../components/BatteryComponent';
-import CameraView from './CameraView';
 import Time from '../components/Time';
 
 
@@ -52,6 +51,7 @@ export default HomeView = ({navigation}) => {
         <View style={styles.row}>
           <GeneralButton
             text="ΧΑΡΤΕΣ"
+            onPress={() => Linking.openURL('google.navigation:q=')}
           />
           <GeneralButton
             text="ΚΑΜΕΡΑ"
