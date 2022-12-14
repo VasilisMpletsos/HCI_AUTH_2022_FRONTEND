@@ -36,7 +36,6 @@ export default CameraView = () => {
   const takePicture = async () => {
     if (camera && cameraPermission) {
       const data = await camera.takePictureAsync(null);
-      console.log(data.uri);
       setImageUri(data.uri);
     }else{
       alert('Permission for camera is needed.');
@@ -56,8 +55,14 @@ export default CameraView = () => {
       {imageUri ? 
         <View style={styles.container}>
           <Image source={{ uri: imageUri }} style={{ flex: 1 }} />
-          <Button title='Gallery' onPress={pickImage} />
-          <Button title='Take more Photos' onPress={()=>setImageUri('')} />
+          <View style={styles.buttons}>
+            <TouchableOpacity style={styles.button} onPress={pickImage}>
+              <Image source={require('../assets/imageFolder.png')} style={{ flex: 1, width:'100%' }}/>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={()=>setImageUri('')}>
+              <Image source={require('../assets/back.png')} style={{ flex: 1, width:'100%' }}/>
+            </TouchableOpacity>
+          </View>
         </View>
         :
         <View style={{ flex: 1 }}>

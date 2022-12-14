@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import * as Battery from 'expo-battery';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {

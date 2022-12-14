@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet, View, Linking } from 'react-native';
 import GeneralButton from '../components/GeneralButton';
 import BatteryComponent from '../components/BatteryComponent';
@@ -36,13 +37,13 @@ export default HomeView = ({navigation}) => {
       <View style={styles.buttons}> 
         <View style={styles.row}>
           <GeneralButton
-            text="ΠΡΟΦΙΛ"
+            imageUri={require('../assets/profile.png')}
             onPress={() =>
               navigation.navigate('Profile')
             }
           />
           <GeneralButton
-            text="ΕΠΑΦΕΣ"
+            imageUri={require('../assets/contacts.png')}
             onPress={() =>
               navigation.navigate('Contacts')
             }
@@ -50,11 +51,11 @@ export default HomeView = ({navigation}) => {
         </View>
         <View style={styles.row}>
           <GeneralButton
-            text="ΧΑΡΤΕΣ"
+            imageUri={require('../assets/map.png')}
             onPress={() => Linking.openURL('google.navigation:q=')}
           />
           <GeneralButton
-            text="ΚΑΜΕΡΑ"
+            imageUri={require('../assets/camera.png')}
             onPress={() =>
               navigation.navigate('Camera')
             }
