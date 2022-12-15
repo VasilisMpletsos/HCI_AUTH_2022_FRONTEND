@@ -2,22 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import moment from 'moment/moment';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: '400'
-  },
-  highlight:{
-    fontSize: 40,
-    fontWeight: '600'
-  }
-});
-
 const Time = () => {
 
   const [time, setTime] = useState('')
@@ -47,5 +31,21 @@ const Time = () => {
     </View>
     );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: '400'
+  },
+  highlight:{
+    fontSize: 40,
+    fontWeight: '600'
+  }
+});
 
 export default Time;

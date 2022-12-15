@@ -10,18 +10,19 @@ export default ContactsView = ({navigation}) => {
 
   useEffect(() => {
     (async () => {
-      const { status } = await Contacts.requestPermissionsAsync();
-      if (status === 'granted') {
-        const { data } = await Contacts.getContactsAsync({
-          fields: [Contacts.Fields.PhoneNumbers],
-        });
-  
-        if(data.length > 0) {
-          setContacts(data);
+      Contacts.requestPermissionsAsync().then(({status})=>{
+        if (status === 'granted') {
+            Contacts.getContactsAsync({
+            fields: [Contacts.Fields.PhoneNumbers],
+          }).then(({data})=>{
+            if(data.length > 0) {
+              setContacts(data);
+            }
+          });
         }
-      }
+      });
     })();
-  }, []);
+  },[]);
 
   const callContact = (item) => {
     if(item?.phoneNumbers && item.phoneNumbers[0]?.number){

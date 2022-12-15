@@ -41,12 +41,13 @@ const BatteryComponent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
   imageContainer:{
     flex: 1,
-    width: '100%',
+    width: '80%',
   },
   image:{
     width: '100%',

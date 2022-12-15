@@ -12,8 +12,9 @@ export default CameraView = () => {
   const [cameraPermission, setCameraPermission] = Camera.useCameraPermissions();
 
   const permisionFunction = async () => {
-    const permission = await Camera.getCameraPermissionsAsync();
-    setCameraPermission(permission.status.granted);
+    Camera.getCameraPermissionsAsync().then(permission=>{
+      setCameraPermission(permission.status.granted);
+    });
   };
 
   useEffect(() => {
@@ -21,22 +22,23 @@ export default CameraView = () => {
   }, []);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [16, 9],
       quality: 1,
+    }).then(result=>{
+      if (!result.canceled) {
+        setImageUri(result.assets);
+      }
     });
-
-    if (!result.canceled) {
-      setImageUri(result.assets);
-    }
   };
 
   const takePicture = async () => {
     if (camera && cameraPermission) {
-      const data = await camera.takePictureAsync(null);
-      setImageUri(data.uri);
+      camera.takePictureAsync(null).then(data=>{
+        setImageUri(data.uri);
+      });
     }else{
       alert('Permission for camera is needed.');
     }
