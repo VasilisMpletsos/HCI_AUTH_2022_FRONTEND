@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, SafeAreaView, FlatList, View, Button } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, FlatList, View, Button, TouchableOpacity } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import call from 'react-native-phone-call';
 
@@ -33,7 +33,11 @@ export default ContactsView = ({navigation}) => {
 
   const renderRow = ({ item }) => (
     <View style={styles.row}>
-      <Button style={styles.rowPhone} title={item.name} onPress={() => callContact(item)}/>
+      <TouchableOpacity onPress={() => callContact(item)}>
+        <Text style={styles.rowName}>
+          {item.name}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 
@@ -66,10 +70,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'center',
-    padding: 5
+    padding: 5,
+    borderBottomWidth: 1,
 
   },
-  rowPhone: {
+  rowName: {
     fontSize: 40,
   },
 });

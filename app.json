@@ -4,10 +4,10 @@
     "slug": "EasyUp",
     "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/EasyUp Logo.png",
+    "icon": "./assets/EasyUpLogo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/EasyUp Logo.png",
+      "image": "./assets/EasyUpLogo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
