@@ -37,7 +37,7 @@ const ImpactDetector = () => {
   }
 
   useEffect(() => {
-    if((x > 5 || y > 3 || z > 3) && !impact){
+    if((x > 5 || y > 5 || z > 5) && !impact){
       console.log('Acceleration is big');
       sendImpactEmergencyMessage();
       setImpact(true);

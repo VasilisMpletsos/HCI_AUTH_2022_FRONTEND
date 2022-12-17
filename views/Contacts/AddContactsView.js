@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, SafeAreaView, FlatList, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, FlatList, View, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Contacts from 'expo-contacts';
-import call from 'react-native-phone-call';
 
 
 export default ContactsView = ({navigation}) => {
 
-  const [contacts, setContacts] = useState(null)
+  const [contacts, setContacts] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -24,16 +24,30 @@ export default ContactsView = ({navigation}) => {
     })();
   },[]);
 
-  const callContact = (item) => {
+  const saveContact = async (item) => {
     if(item?.phoneNumbers && item.phoneNumbers[0]?.number){
-      const number = item.phoneNumbers[0].number;
-      call({number, prompt: true}).catch(console.error);
+      try {
+        AsyncStorage.getAllKeys(async (error, keys)=>{
+          const countContacts = keys.filter(key => key.includes("Contact")).length;
+          console.log(countContacts);
+          if((countContacts+1) < 7){
+            const newContact = JSON.stringify(item);
+            const newKey = "Contact" + String(countContacts+1);
+            await AsyncStorage.setItem(newKey, newContact);
+            alert('Contact Added');
+          }else{
+            alert("Can't have more than 6 contacts");
+          }
+        });
+      } catch (e) {
+        alert("Couldn't save contact");
+      }
     }
   }
 
   const renderRow = ({ item }) => (
     <View style={styles.row}>
-      <TouchableOpacity onPress={() => callContact(item)}>
+      <TouchableOpacity onPress={() => saveContact(item)}>
         <Text style={styles.rowName}>
           {item.name}
         </Text>

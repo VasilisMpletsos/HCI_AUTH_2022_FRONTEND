@@ -6,14 +6,19 @@ import * as ImagePicker from 'expo-image-picker';
 
 export default CameraView = () => {
   const [camera, setCamera] = useState({});
+  const [cameraReady, setCameraReady] = useState(false);
   const [imageUri, setImageUri] = useState('');
   const [type, setType] = useState(CameraType.back);
   const [flash, setFlash] = useState(FlashMode.off);
   const [cameraPermission, setCameraPermission] = Camera.useCameraPermissions();
+  const [galleryPermission, setGalleryPermission] = ImagePicker.useMediaLibraryPermissions();
 
   const permisionFunction = async () => {
     Camera.getCameraPermissionsAsync().then(permission=>{
       setCameraPermission(permission.status.granted);
+    });
+    ImagePicker.getCameraPermissionsAsync().then(permission=>{
+      setGalleryPermission(permission.status.granted);
     });
   };
 
@@ -22,23 +27,31 @@ export default CameraView = () => {
   }, []);
 
   const pickImage = async () => {
-    ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [16, 9],
-      quality: 1,
-    }).then(result=>{
-      if (!result.canceled) {
-        setImageUri(result.assets);
-      }
-    });
+    if(galleryPermission){
+      ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 1,
+      }).then(result=>{
+        if (!result.canceled) {
+          setImageUri(result.assets);
+        }
+      });
+    }else{
+      alert('Gallery permission is needed.');
+    }
   };
 
+  const onPictureSaved = (photo) => {
+    console.log(photo);
+} 
+
   const takePicture = async () => {
-    if (camera && cameraPermission) {
-      camera.takePictureAsync(null).then(data=>{
-        setImageUri(data.uri);
-      });
+    if (camera && cameraPermission && cameraReady) {
+      const capturedPicture = await camera.takePictureAsync(null);
+      console.log(capturedPicture);
+      setImageUri(capturedPicture.uri);
     }else{
       alert('Permission for camera is needed.');
     }
@@ -70,8 +83,10 @@ export default CameraView = () => {
         <View style={{ flex: 1 }}>
           <Camera
             ref={(ref) => setCamera(ref)}
+            onCameraReady={()=>{setCameraReady(true)}}
             style={styles.fixedRatio}
             flashMode={flash}
+            autoFocus='on'
             type={type}
             ratio='16:9'
           />
