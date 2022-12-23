@@ -13,7 +13,7 @@ export default ProfileView = ({navigation}) => {
 
   const saveProfileInfo = () => {
     const profileInfo = JSON.stringify(userData);
-    AsyncStorage.setItem("profileInfo", profileInfo).then(()=>{
+    AsyncStorage.setItem("profileInfo2", profileInfo).then(()=>{
       setEdit(!edit);
     }).catch(()=>{
       alert("Something went wrong. Couldn't save profile info")
@@ -21,8 +21,10 @@ export default ProfileView = ({navigation}) => {
   }
 
   useEffect(()=>{
-    AsyncStorage.getItem("profileInfo").then(profileInfo=>{
-      setUserData(JSON.parse(profileInfo));
+    AsyncStorage.getItem("profileInfo2").then(profileInfo=>{
+      if(profileInfo){
+        setUserData(JSON.parse(profileInfo));
+      }
     });
   },[])
 
@@ -39,6 +41,7 @@ export default ProfileView = ({navigation}) => {
         <TextInput
         style={styles.textInput}
         onChangeText={username => setUserData({...userData, username: username})}
+        placeholder="Enter Username"
         value={userData.username}
         /> :
         <Text style={styles.text}>
@@ -56,6 +59,7 @@ export default ProfileView = ({navigation}) => {
         <TextInput
         style={styles.textInput}
         onChangeText={civilianID => setUserData({...userData, civilianID: civilianID})}
+        placeholder="Enter Civilian ID"
         value={userData.civilianID}
         /> :
         <Text style={styles.text}>
@@ -73,6 +77,7 @@ export default ProfileView = ({navigation}) => {
         <TextInput
         style={styles.textInput}
         onChangeText={homeAddress => setUserData({...userData, homeAddress: homeAddress})}
+        placeholder="Enter Home Address"
         value={userData.homeAddress}
         /> :
         <Text style={styles.text}>
