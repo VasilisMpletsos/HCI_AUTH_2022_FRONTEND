@@ -72,10 +72,10 @@ export default CameraView = () => {
           <Image source={{ uri: imageUri }} style={{ flex: 1 }} />
           <View style={styles.buttons}>
             <TouchableOpacity style={styles.button} onPress={pickImage}>
-              <Image source={require('../assets/imageFolder.png')} style={{ flex: 1, width:'100%' }}/>
+              <Image source={require('../assets/imageFolder.png')} style={styles.image}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={()=>setImageUri('')}>
-              <Image source={require('../assets/back.png')} style={{ flex: 1, width:'100%' }}/>
+              <Image source={require('../assets/back.png')} style={styles.image}/>
             </TouchableOpacity>
           </View>
         </View>
@@ -92,13 +92,13 @@ export default CameraView = () => {
           />
           <View style={styles.buttons}>
             <TouchableOpacity style={styles.button} onPress={toggleFlashlight}>
-              <Image source={require('../assets/flashlight.png')} style={{ flex: 1, width:'100%' }}/>
+              <Image source={require('../assets/flashlight.png')} style={styles.image}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={takePicture}>
-              <Image source={require('../assets/camera.png')} style={{ flex: 1, width:'100%' }}/>
+              <Image source={require('../assets/camera.png')} style={styles.image}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={toggleCamera}>
-              <Image source={require('../assets/switch.png')} style={{ flex: 1, width:'100%' }}/>
+              <Image source={require('../assets/switch.png')} style={styles.image}/>
             </TouchableOpacity>
           </View>
         </View>
@@ -127,7 +127,13 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 20,
-    padding: 10,
+    padding: 2,
     backgroundColor: 'white',
+  },
+  image: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain'
   }
 });

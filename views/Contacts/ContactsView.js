@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import { useIsFocused } from "@react-navigation/native";
 import * as Contacts from 'expo-contacts';
 import call from 'react-native-phone-call';
 
@@ -10,20 +11,21 @@ export default ContactsView = ({navigation}) => {
 
   const [savedContacts, setSavedContacts] = useState([]);
   const [showContacts, setShowContacts] = useState(false);
+  const isFocused = useIsFocused();
 
   const getSavedContacts = async () => {
     try {
       AsyncStorage.getAllKeys(async (error, keys)=>{
         keys = keys.filter(key => key.includes("Contact"));
         await AsyncStorage.multiGet(keys, (err, stores) => {
+          let contacts = [];
           stores.map((result, i, store) => {
             let key = store[i][0];
             console.log(key);
             let value = JSON.parse(store[i][1]);
-            let contacts = savedContacts;
             contacts.push({id: key, phone: value.phoneNumbers[0].number, name: value.name});
-            setSavedContacts(contacts);
           })
+          setSavedContacts(contacts);
         });
         if(keys.length){
           setShowContacts(true);
@@ -34,15 +36,9 @@ export default ContactsView = ({navigation}) => {
     }
   }
 
-  useFocusEffect(()=>{
+  useEffect(()=>{
     getSavedContacts();
-  })
-
-  useEffect(()=>{}, [savedContacts])
-
-  setTimeout(()=>{
-    console.log(savedContacts);
-  },1000)
+  },[isFocused])
 
   const callContact = (item) => {
     const number = item.phone;
@@ -54,7 +50,12 @@ export default ContactsView = ({navigation}) => {
       console.log(contact);
       return (
         <View style={styles.row}>
-          <Text style={styles.rowName} key={contact.id}>{contact.name}</Text>
+          <View style={styles.rowTextContainer}>
+            <Text style={styles.rowText} key={contact.id}>{contact.name}</Text>
+          </View>
+          <TouchableOpacity onPress={()=>callContact(contact)} style={styles.rowImageContainer}>
+            <Image key={contact.id + 'Image'} source={require('../../assets/call.png')} style={styles.callIcon}/>
+          </TouchableOpacity>
         </View>
       )
     })
@@ -76,20 +77,17 @@ export default ContactsView = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.addContacts}>
-        <Button 
-          title="Add Contacts" 
-          onPress={()=>{navigation.navigate('Add Contacts')}}
-        />
-        <Button 
-          title="Clear Saved Contacts" 
-          color='red'
-          onPress={clearSavedContacts}
-        />
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('Add Contacts')}}>
+          <Image source={require('../../assets/add.png')} style={styles.image}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={clearSavedContacts}>
+          <Image source={require('../../assets/delete.png')} style={styles.image}/>
+        </TouchableOpacity>
       </View>
       <View style={styles.savedContacts}>
         {
-        (savedContacts.length !== 0) ?
+        showContacts ?
         <View>
           {renderRow()}
         </View>
@@ -109,26 +107,55 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
-  addContacts: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
   savedContacts:{
     flex: 5,
   },
   row: {
-    padding: 1,
+    padding: 5,
     borderBottomWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'row',
   },
-  rowName: {
+  rowTextContainer: {
+    flex: 5,
+    justifyContent: 'center',
+  },
+  rowText: {
     fontSize: 40,
+  },
+  rowImageContainer:{
+    flex:1,
+    justifyContent: 'center',
+  },
+  callIcon:{
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain'
   },
   noContactsView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  buttons:{
+    position: 'absolute',
+    bottom: 10,
+    height: 100,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+  button: {
+    width: 80,
+    height: 80,
+    borderRadius: 20,
+    padding: 2,
+    backgroundColor: 'white',
+  },
+  image: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain'
   }
 });

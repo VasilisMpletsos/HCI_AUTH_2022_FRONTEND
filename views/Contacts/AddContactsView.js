@@ -3,7 +3,6 @@ import { StyleSheet, Text, SafeAreaView, FlatList, View, TouchableOpacity } from
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Contacts from 'expo-contacts';
 
-
 export default ContactsView = ({navigation}) => {
 
   const [contacts, setContacts] = useState(null);
@@ -12,9 +11,7 @@ export default ContactsView = ({navigation}) => {
     (async () => {
       Contacts.requestPermissionsAsync().then(({status})=>{
         if (status === 'granted') {
-            Contacts.getContactsAsync({
-            fields: [Contacts.Fields.PhoneNumbers],
-          }).then(({data})=>{
+          Contacts.getContactsAsync({fields: [Contacts.Fields.PhoneNumbers]}).then(({data})=>{
             if(data.length > 0) {
               setContacts(data);
             }
@@ -29,7 +26,6 @@ export default ContactsView = ({navigation}) => {
       try {
         AsyncStorage.getAllKeys(async (error, keys)=>{
           const countContacts = keys.filter(key => key.includes("Contact")).length;
-          console.log(countContacts);
           if((countContacts+1) < 7){
             const newContact = JSON.stringify(item);
             const newKey = "Contact" + String(countContacts+1);
