@@ -62,7 +62,7 @@ const HomeView = ({navigation}) => {
           <GeneralButton
             imageUri={require('../assets/map.png')}
             disabled={!locationPermissions}
-            onPress={() => Linking.openURL(`google.navigation:q=${location.coords.latitude},${location.coords.longitude}`)}
+            onPress={() => Linking.openURL(`geo:${location.coords.latitude},${location.coords.longitude}`)}
           />
           <GeneralButton
             imageUri={require('../assets/camera.png')}

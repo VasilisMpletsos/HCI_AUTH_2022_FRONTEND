@@ -49,12 +49,12 @@ export default ContactsView = ({navigation}) => {
     return savedContacts.map((contact)=>{
       console.log(contact);
       return (
-        <View style={styles.row}>
+        <View style={styles.row} key={contact.id}>
           <View style={styles.rowTextContainer}>
-            <Text style={styles.rowText} key={contact.id}>{contact.name}</Text>
+            <Text style={styles.rowText}>{contact.name}</Text>
           </View>
           <TouchableOpacity onPress={()=>callContact(contact)} style={styles.rowImageContainer}>
-            <Image key={contact.id + 'Image'} source={require('../../assets/call.png')} style={styles.callIcon}/>
+            <Image source={require('../../assets/call.png')} style={styles.callIcon}/>
           </TouchableOpacity>
         </View>
       )
@@ -66,7 +66,6 @@ export default ContactsView = ({navigation}) => {
     try{
       AsyncStorage.getAllKeys(async (error, keys)=>{
         keys = keys.filter(key => key.includes("Contact"));
-        console.log(keys);
         AsyncStorage.multiRemove(keys, err => {})
       })
     }catch(e){

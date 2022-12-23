@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
+import * as MediaLibrary from 'expo-media-library';
 
 
 export default CameraView = () => {
@@ -12,10 +13,14 @@ export default CameraView = () => {
   const [flash, setFlash] = useState(FlashMode.off);
   const [cameraPermission, setCameraPermission] = Camera.useCameraPermissions();
   const [galleryPermission, setGalleryPermission] = ImagePicker.useMediaLibraryPermissions();
+  const [mediaPermission, setMediaPermission] = MediaLibrary.usePermissions();
 
   const permisionFunction = async () => {
     Camera.getCameraPermissionsAsync().then(permission=>{
       setCameraPermission(permission.status.granted);
+    });
+    MediaLibrary.getPermissionsAsync().then(permission=>{
+      setMediaPermission(permission.status.granted);
     });
     ImagePicker.getCameraPermissionsAsync().then(permission=>{
       setGalleryPermission(permission.status.granted);
@@ -43,14 +48,10 @@ export default CameraView = () => {
     }
   };
 
-  const onPictureSaved = (photo) => {
-    console.log(photo);
-} 
-
   const takePicture = async () => {
-    if (camera && cameraPermission && cameraReady) {
+    if (camera && cameraPermission && cameraReady && mediaPermission) {
       const capturedPicture = await camera.takePictureAsync(null);
-      console.log(capturedPicture);
+      await MediaLibrary.createAssetAsync(capturedPicture.uri);
       setImageUri(capturedPicture.uri);
     }else{
       alert('Permission for camera is needed.');
