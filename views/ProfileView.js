@@ -11,6 +11,21 @@ export default ProfileView = ({navigation}) => {
   });
   const [edit, setEdit] = useState(false);
 
+  const saveProfileInfo = () => {
+    const profileInfo = JSON.stringify(userData);
+    AsyncStorage.setItem("profileInfo", profileInfo).then(()=>{
+      setEdit(!edit);
+    }).catch(()=>{
+      alert("Something went wrong. Couldn't save profile info")
+    });
+  }
+
+  useEffect(()=>{
+    AsyncStorage.getItem("profileInfo").then(profileInfo=>{
+      setUserData(JSON.parse(profileInfo));
+    });
+  },[])
+
 
   return (
     <View style={styles.container}>
@@ -67,12 +82,14 @@ export default ProfileView = ({navigation}) => {
       </View>
       
       <View style={styles.row}>
-        <TouchableOpacity style={styles.button} onPress={()=>setEdit(!edit)}>
           {edit ? 
-          <Image source={require('../assets/success.png')} style={styles.editButton}/> :
-          <Image source={require('../assets/edit.png')} style={styles.editButton}/> 
+          <TouchableOpacity style={styles.button} onPress={saveProfileInfo}>
+            <Image source={require('../assets/success.png')} style={styles.editButton}/>
+          </TouchableOpacity> :
+          <TouchableOpacity style={styles.button} onPress={()=>setEdit(!edit)}>
+            <Image source={require('../assets/edit.png')} style={styles.editButton}/> 
+          </TouchableOpacity>
           }
-        </TouchableOpacity>
       </View>
 
     </View>
