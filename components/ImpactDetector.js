@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
 import * as SMS from 'expo-sms';
+import * as Location from 'expo-location';
 
 const ImpactDetector = () => {
   const [{ x, y, z }, setData] = useState({
@@ -11,6 +12,27 @@ const ImpactDetector = () => {
   });
   const [impact, setImpact] = useState(false);
   const [subscription, setSubscription] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [locationPermissions, setLocationPermissions] = useState(false);
+
+  const getLocation = async() => {
+    if (locationPermissions){
+      Location.getCurrentPositionAsync({}).then(location=>{
+        setLocation(location);  
+      });
+    }
+  }
+
+  const getLocationPermissions = async () => {
+    Location.requestForegroundPermissionsAsync().then(async ({status})=>{
+     if (status !== 'granted') {
+       setLocationPermissions(false);
+       return;
+     }
+     setLocationPermissions(true);
+     getLocation();
+    });
+   };
 
   const _subscribe = () => {
     setSubscription(
@@ -26,19 +48,20 @@ const ImpactDetector = () => {
 
   useEffect(()=>{
     _subscribe();
+    getLocationPermissions();
     return () => _unsubscribe;
   },[])
 
   const sendImpactEmergencyMessage = async () => {
+    await getLocation();
     const isAvailable = await SMS.isAvailableAsync();
     if (isAvailable) {
-      SMS.sendSMSAsync('+306944048324','Impact Detected');
+      SMS.sendSMSAsync('199',`Impact Detected at ${location.coords.latitude},${location.coords.longitude}`);
     }
   }
 
   useEffect(() => {
-    if((x > 5 || y > 5 || z > 5) && !impact){
-      console.log('Acceleration is big');
+    if(Math.max(x,y,z) > 4 && !impact){
       sendImpactEmergencyMessage();
       setImpact(true);
       setTimeout(()=>{
