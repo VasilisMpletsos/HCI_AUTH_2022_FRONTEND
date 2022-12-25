@@ -21,7 +21,6 @@ export default ContactsView = ({navigation}) => {
           let contacts = [];
           stores.map((result, i, store) => {
             let key = store[i][0];
-            console.log(key);
             let value = JSON.parse(store[i][1]);
             contacts.push({id: key, phone: value.phoneNumbers[0].number, name: value.name});
           })
@@ -47,7 +46,6 @@ export default ContactsView = ({navigation}) => {
 
   const renderRow = () => {
     return savedContacts.map((contact)=>{
-      console.log(contact);
       return (
         <View style={styles.row} key={contact.id}>
           <View style={styles.rowTextContainer}>

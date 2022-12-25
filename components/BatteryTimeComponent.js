@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import * as Battery from 'expo-battery';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import moment from 'moment/moment';
@@ -55,17 +55,15 @@ const BatteryComponent = () => {
           </Text>
         </View>
         <View style={styles.battery}>
-          {(batteryState === 1) ? 
-          <Image source={require('../assets/battery.png')} style={styles.image}/>
-          : 
-          <Image source={require('../assets/batteryCharging.png')} style={styles.image}/>
-          }
-          {batteryState === 1 ? 
+          {(batteryState === 1 || battery > 95) ? 
+          <Fragment>
+            <Image source={require('../assets/battery.png')} style={styles.image}/>
             <Text style={styles.batteryPercentageText}>
               {battery}%
             </Text>
+          </Fragment>
           : 
-            null
+          <Image source={require('../assets/batteryCharging.png')} style={styles.image}/>
           }
         </View>
       </View>
@@ -86,7 +84,6 @@ const styles = StyleSheet.create({
   timeAndBatteryContainer: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
   },
   time: {
     flex: 3,
@@ -114,7 +111,7 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Medium',
   },
   batteryPercentageText:{
-    fontSize: 23,
+    fontSize: 20,
     color: 'white',
     position: 'absolute',
     fontFamily: 'OpenSans-Bold'
