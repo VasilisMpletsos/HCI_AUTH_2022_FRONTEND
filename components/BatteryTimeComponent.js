@@ -21,7 +21,7 @@ const BatteryComponent = () => {
   }
 
   const getTime = () => {
-    setTime(moment().utcOffset('+02:00').format('hh:mm:ss'));
+    setTime(moment().utcOffset('+02:00').format('H:m:ss'));
   }
 
   const subscribe = () => {
