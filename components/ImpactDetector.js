@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
 import * as SMS from 'expo-sms';
 import * as Location from 'expo-location';
+import * as Haptics from 'expo-haptics';
 
 const ImpactDetector = () => {
   const [{ x, y, z }, setData] = useState({
@@ -25,12 +26,11 @@ const ImpactDetector = () => {
 
   const getLocationPermissions = async () => {
     Location.requestForegroundPermissionsAsync().then(async ({status})=>{
-     if (status !== 'granted') {
-       setLocationPermissions(false);
-       return;
+     if (status == 'granted') {
+       setLocationPermissions(true);
+       getLocation();
      }
-     setLocationPermissions(true);
-     getLocation();
+     console.log('Location persmission', status)
     });
    };
 
@@ -56,7 +56,7 @@ const ImpactDetector = () => {
     await getLocation();
     const isAvailable = await SMS.isAvailableAsync();
     if (isAvailable) {
-      SMS.sendSMSAsync('199',`Impact Detected at ${location.coords.latitude},${location.coords.longitude}`);
+      SMS.sendSMSAsync('166',`Impact Detected at ${location.coords.latitude},${location.coords.longitude}`);
     }
   }
 

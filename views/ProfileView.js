@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -7,6 +7,7 @@ export default ProfileView = ({navigation}) => {
   const [userData, setUserData] = useState({
     username: '',
     civilianID: '',
+    phone: '',
     homeAddress: ''
   });
   const [edit, setEdit] = useState(false);
@@ -30,98 +31,128 @@ export default ProfileView = ({navigation}) => {
 
 
   return (
-    <View style={styles.container}>
-
-      <View style={styles.row}>
-        <Text style={styles.title}>
-          Username
-        </Text> 
-        {
-        edit ? 
-        <TextInput
-        style={styles.textInput}
-        onChangeText={username => setUserData({...userData, username: username})}
-        placeholder="Enter Username"
-        value={userData.username}
-        /> :
-        <Text style={styles.text}>
-          {userData.username ? userData.username : 'No Name'}
-        </Text> 
-        }
-      </View>
-
-      <View style={styles.row}>
-        <Text style={styles.title}>
-          Civilian ID
-        </Text> 
-        {
-        edit ? 
-        <TextInput
-        style={styles.textInput}
-        onChangeText={civilianID => setUserData({...userData, civilianID: civilianID})}
-        placeholder="Enter Civilian ID"
-        value={userData.civilianID}
-        /> :
-        <Text style={styles.text}>
-          {userData.civilianID ? userData.civilianID : 'No Civilian ID'}
-        </Text> 
-        }
-      </View>
-      
-      <View style={styles.row}>
-        <Text style={styles.title}>
-          Home Address
-        </Text> 
-        {
-        edit ? 
-        <TextInput
-        style={styles.textInput}
-        onChangeText={homeAddress => setUserData({...userData, homeAddress: homeAddress})}
-        placeholder="Enter Home Address"
-        value={userData.homeAddress}
-        /> :
-        <Text style={styles.text}>
-          {userData.homeAddress ? userData.homeAddress : 'No Home Address'}
-        </Text> 
-        }
-      </View>
-      
-      <View style={styles.row}>
-          {edit ? 
-          <TouchableOpacity style={styles.button} onPress={saveProfileInfo}>
-            <Image source={require('../assets/success.png')} style={styles.editButton}/>
-          </TouchableOpacity> :
-          <TouchableOpacity style={styles.button} onPress={()=>setEdit(!edit)}>
-            <Image source={require('../assets/edit.png')} style={styles.editButton}/> 
-          </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.row}>
+          <Text style={styles.title}>
+            Ονοματεπώνυμο
+          </Text> 
+          {
+          edit ? 
+          <TextInput
+          style={styles.textInput}
+          onChangeText={username => setUserData({...userData, username: username})}
+          placeholder="Ονοματεπώνυμο"
+          value={userData.username}
+          /> :
+          <Text style={styles.text}>
+            {userData.username ? userData.username : 'Δεν έχει αποθηκευτεί'}
+          </Text> 
           }
-      </View>
+        </View>
 
-    </View>
+        <View style={styles.row}>
+          <Text style={styles.title}>
+            Αριθμός Ταυτότητας
+          </Text> 
+          {
+          edit ? 
+          <TextInput
+          style={styles.textInput}
+          onChangeText={civilianID => setUserData({...userData, civilianID: civilianID})}
+          placeholder="Αριθμός Ταυτότητας"
+          value={userData.civilianID}
+          /> :
+          <Text style={styles.text}>
+            {userData.civilianID ? userData.civilianID : 'Δεν έχει αποθηκευτεί'}
+          </Text> 
+          }
+        </View>
+        
+        <View style={styles.row}>
+          <Text style={styles.title}>
+          Κινητό Τηλέφωνο
+          </Text> 
+          {
+          edit ? 
+          <TextInput
+          style={styles.textInput}
+          onChangeText={phone => setUserData({...userData, phone: phone})}
+          placeholder="Κινητό Τηλέφωνο"
+          value={userData.phone}
+          /> :
+          <Text style={styles.text}>
+            {userData.phone ? userData.phone : 'Δεν έχει αποθηκευτεί'}
+          </Text> 
+          }
+        </View>
+
+        <View style={styles.row}>
+          <Text style={styles.title}>
+            Διεύθυνση Κατοικίας
+          </Text> 
+          {
+          edit ? 
+          <TextInput
+          style={styles.textInput}
+          onChangeText={homeAddress => setUserData({...userData, homeAddress: homeAddress})}
+          placeholder="Διεύθυνση Κατοικίας"
+          value={userData.homeAddress}
+          /> :
+          <Text style={styles.text}>
+            {userData.homeAddress ? userData.homeAddress : 'Δεν έχει αποθηκευτεί'}
+          </Text> 
+          }
+        </View>
+        
+        <View style={styles.row}>
+            {edit ? 
+            <TouchableOpacity
+              onPress={()=>setEdit(!edit)}
+              accessibilityLabel="Learn more about this purple button"
+            >
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>ΑΠΟΘΗΚΕΥΣΗ ΑΛΛΑΓΩΝ</Text>
+              </View>
+            </TouchableOpacity>
+            :
+            <TouchableOpacity
+              onPress={saveProfileInfo}
+              accessibilityLabel="Learn more about this purple button"
+            >
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>ΑΛΛΑΓΗ ΣΤΟΙΧΕΙΩΝ</Text>
+              </View>
+            </TouchableOpacity>
+            }
+        </View>
+      </ScrollView>
+    </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  scrollView: {
+    flex: 1,
     backgroundColor: '#ffffff',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    flexDirection: 'column',
   },
   row: {
     flex: 1,
+    minHeight: 130,
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
     fontSize: 30,
-    fontWeight: '800',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    fontFamily: 'OpenSans-Medium'
   },
   text: {
     fontSize: 25,
-    fontWeight: '600'
+    fontFamily: 'OpenSans-Bold',
   },
   textInput: {
     fontSize: 25,
@@ -131,14 +162,15 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },  
   button:{
-    width: 100,
-    height: 100,
+    height: 50,
+    padding: 10,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 5,
+    backgroundColor: '#C8DFF4'
   },
-  editButton:{
-    flex: 1, 
-    width:'100%',
-  }
+  buttonText:{
+    fontSize: 18,
+    fontFamily: 'OpenSans-Bold',
+  },
 });

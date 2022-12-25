@@ -6,15 +6,18 @@ import 'moment/locale/el';
 
 const BatteryComponent = () => {
   const [battery, setBattery] = useState(100);
+  const [batteryState, setBatteryState] = useState(1);
   const [time, setTime] = useState('');
   const [date, setDate] = useState('');
   const [month, setMonth] = useState('');
   
   const getBatteryLevel = async () => {
+    const stateBattery = await Battery.getBatteryStateAsync();
+    setBatteryState(stateBattery);
     let battery = await Battery.getBatteryLevelAsync();
     battery *=  100;
-    battery = Math.round(battery,2)
-    setBattery(battery)
+    battery = Math.round(battery,2);
+    setBattery(battery);
   }
 
   const getTime = () => {
@@ -25,7 +28,7 @@ const BatteryComponent = () => {
     getBatteryLevel();
   };
 
-  const batteryInterval = setInterval(getBatteryLevel,1000);
+  const batteryInterval = setInterval(getBatteryLevel,10000);
 
   useEffect(() => {
     subscribe();
@@ -57,10 +60,18 @@ const BatteryComponent = () => {
           </Text>
         </View>
         <View style={styles.battery}>
+          {batteryState === 1 ? 
           <Image source={require('../assets/battery.png')} style={styles.image}/>
-          <Text style={styles.batteryPercentageText}>
-            {battery}%
-          </Text>
+          : 
+          <Image source={require('../assets/batteryCharging.png')} style={styles.image}/>
+          }
+          {batteryState === 1 ? 
+            <Text style={styles.batteryPercentageText}>
+              {battery}%
+            </Text>
+          : 
+            null
+          }
         </View>
       </View>
     </View>
@@ -100,9 +111,8 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   text:{
-    fontSize: 40,
-    fontWeight: '600',
-    fontFamily: 'OpenSans-Medium',
+    fontSize: 35,
+    fontFamily: 'OpenSans-Bold',
   },
   timeText:{
     fontSize: 50,

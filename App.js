@@ -54,11 +54,11 @@ export default function App() {
     <View style={{flex: 1}}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeView}/>
-          <Stack.Screen name="Profile" component={ProfileView}/>
-          <Stack.Screen name="Contacts" component={ContactsView}/>
-          <Stack.Screen name="Add Contacts" component={AddContactsView}/>
-          <Stack.Screen name="Camera" component={CameraView}/>
+          <Stack.Screen name="Home" component={HomeView} options={{title: ''}}/>
+          <Stack.Screen name="Profile" component={ProfileView} options={{title: 'ΠΡΟΣΩΠΙΚΑ ΣΤΟΙΧΕΙΑ'}}/>
+          <Stack.Screen name="Contacts" component={ContactsView} options={{title: 'ΕΠΑΦΕΣ'}}/>
+          <Stack.Screen name="Add Contacts" component={AddContactsView} options={{title: 'ΠΡΟΣΘΗΚΗ ΕΠΑΦΩΝ'}}/>
+          <Stack.Screen name="Camera" component={CameraView} options={{title: 'ΦΩΤΟΓΡΑΦΙΚΗ'}}/>
         </Stack.Navigator>
       </NavigationContainer>
       <ImpactDetector/>
