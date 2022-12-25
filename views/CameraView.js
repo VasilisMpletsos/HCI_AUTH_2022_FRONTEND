@@ -50,7 +50,7 @@ export default CameraView = () => {
 
   const takePicture = async () => {
     if (camera && cameraPermission && cameraReady && mediaPermission) {
-      const capturedPicture = await camera.takePictureAsync(null);
+      const capturedPicture = await camera.takePictureAsync({'isImageMirror': (type===CameraType.front)});
       await MediaLibrary.createAssetAsync(capturedPicture.uri);
       setImageUri(capturedPicture.uri);
     }else{

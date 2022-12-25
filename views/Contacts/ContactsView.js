@@ -53,7 +53,7 @@ export default ContactsView = ({navigation}) => {
           <View style={styles.rowTextContainer}>
             <Text style={styles.rowText}>{contact.name}</Text>
           </View>
-          <TouchableOpacity onPress={()=>callContact(contact)} style={styles.rowImageContainer}>
+          <TouchableOpacity onPress={()=>callContact(contact)} style={styles.phoneCall}>
             <Image source={require('../../assets/call.png')} style={styles.callIcon}/>
           </TouchableOpacity>
         </View>
@@ -119,16 +119,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   rowText: {
-    fontSize: 40,
+    fontSize: 30,
+    fontFamily: 'OpenSans-Medium'
   },
-  rowImageContainer:{
+  phoneCall:{
     flex:1,
     justifyContent: 'center',
-  },
+    alignItems: 'center',
+    backgroundColor: '#008037',
+    borderRadius: 100,
+    },
   callIcon:{
     flex: 1,
-    width: null,
-    height: null,
+    width: 40,
+    height: 40,
     resizeMode: 'contain'
   },
   noContactsView: {

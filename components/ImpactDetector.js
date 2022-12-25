@@ -56,12 +56,12 @@ const ImpactDetector = () => {
     await getLocation();
     const isAvailable = await SMS.isAvailableAsync();
     if (isAvailable) {
-      SMS.sendSMSAsync('166',`Impact Detected at ${location.coords.latitude},${location.coords.longitude}`);
+      await SMS.sendSMSAsync('166',`Impact Detected at ${location.coords.latitude},${location.coords.longitude}`);
     }
   }
 
   useEffect(() => {
-    if(Math.max(x,y,z) > 4 && !impact){
+    if(Math.max(x,y,z) > 5 && !impact){
       sendImpactEmergencyMessage();
       setImpact(true);
       setTimeout(()=>{

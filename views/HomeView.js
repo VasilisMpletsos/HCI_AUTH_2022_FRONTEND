@@ -48,7 +48,7 @@ const HomeView = ({navigation}) => {
             }
           />
           <GeneralButton
-            imageUri={require('../assets/contacts.png')}
+            imageUri={require('../assets/call.png')}
             disabled={false}
             borderColor="#008037"
             onPress={() =>

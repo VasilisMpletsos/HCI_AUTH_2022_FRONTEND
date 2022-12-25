@@ -23,17 +23,12 @@ const BatteryComponent = () => {
   const getTime = () => {
     setTime(moment().utcOffset('+02:00').format('H:m:ss'));
   }
-
-  const subscribe = () => {
-    getBatteryLevel();
-  };
-
-  const batteryInterval = setInterval(getBatteryLevel,10000);
-
+  
   useEffect(() => {
-    subscribe();
+    getBatteryLevel();
     getTime();
     moment.locale('el');
+    const batteryInterval = setInterval(getBatteryLevel,1000);
     const timeInterval = setInterval(getTime,1000);
     setDate(moment().utcOffset('+02:00').format('dddd D'));
     setMonth(moment().utcOffset('+02:00').format('MMMM YYYY'));
@@ -60,7 +55,7 @@ const BatteryComponent = () => {
           </Text>
         </View>
         <View style={styles.battery}>
-          {batteryState === 1 ? 
+          {(batteryState === 1) ? 
           <Image source={require('../assets/battery.png')} style={styles.image}/>
           : 
           <Image source={require('../assets/batteryCharging.png')} style={styles.image}/>
@@ -108,7 +103,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: 'contain',
-    position: 'absolute'
+    position: 'absolute',
   },
   text:{
     fontSize: 35,
