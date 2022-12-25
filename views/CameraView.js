@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
@@ -66,20 +66,24 @@ export default CameraView = () => {
     setFlash(flash => (flash === FlashMode.torch ? FlashMode.off : FlashMode.torch));
   }
 
+  const goBack = () => {
+    setImageUri('');
+  }
+
   return (
     <View style={styles.container}>
-      {imageUri ? 
+        {imageUri ?
         <View style={styles.container}>
           <Image source={{ uri: imageUri }} style={{ flex: 1 }} />
           <View style={styles.buttons}>
             <TouchableOpacity style={styles.button} onPress={pickImage}>
               <Image source={require('../assets/imageFolder.png')} style={styles.image}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={()=>setImageUri('')}>
+            <TouchableOpacity style={styles.button} onPress={goBack}>
               <Image source={require('../assets/back.png')} style={styles.image}/>
             </TouchableOpacity>
           </View>
-        </View>
+        </View> 
         :
         <View style={{ flex: 1 }}>
           <Camera
@@ -112,6 +116,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   fixedRatio: {
     flex: 1,

@@ -1,25 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import HomeView from './views/HomeView';
 import ProfileView from './views/ProfileView';
 import ContactsView from './views/Contacts/ContactsView';
 import AddContactsView from './views/Contacts/AddContactsView';
 import CameraView from './views/CameraView';
 import ImpactDetector from './components/ImpactDetector';
-import { Video, AVPlaybackStatus } from 'expo-av';
+import { Video } from 'expo-av';
+import { useFonts } from 'expo-font';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
+
+  /* 
+    Note that his takes some time, for now i am not handling anything regarding the time it takes to load,
+    because i have the video and the whole process of load and play takes 6 seconds which is enough time
+  */ 
+  const [fontsLoaded] = useFonts(
+    {
+    'OpenSans-Medium': require('./assets/fonts/OpenSans-Medium.ttf'),
+    'OpenSans-Bold': require('./assets/fonts/OpenSans-Bold.ttf')
+    }
+  );
   const video = React.useRef(null);
 
   const clearShowIntro = ()=>{
     setTimeout(()=>{
-      setShowIntro(false)
-    },2700)
+      setShowIntro(false);
+    },3000)
   }
 
   if(showIntro){
@@ -32,7 +44,7 @@ export default function App() {
             resizeMode="contain"
             shouldPlay
             isLooping={false}
-            onReadyForDisplay={clearShowIntro}
+            onPlaybackStatusUpdate={clearShowIntro}
           />
       </View>
     )

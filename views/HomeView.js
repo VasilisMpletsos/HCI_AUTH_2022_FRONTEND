@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Linking, Text } from 'react-native';
 import GeneralButton from '../components/GeneralButton';
-import BatteryComponent from '../components/BatteryComponent';
-import Time from '../components/Time';
+import BatteryTimeComponent from '../components/BatteryTimeComponent';
 import * as Location from 'expo-location';
 
 const HomeView = ({navigation}) => {
@@ -35,17 +34,15 @@ const HomeView = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={{flex:1}}>
-        <BatteryComponent/>
+      <View style={styles.batteryAndTimeContainer}>
+        <BatteryTimeComponent/>
       </View>
-      <View style={{flex:1}}>
-        <Time/>
-      </View>
-      <View style={styles.buttons}> 
+      <View style={styles.buttonsContainer}> 
         <View style={styles.row}>
           <GeneralButton
             imageUri={require('../assets/profile.png')}
             disabled={false}
+            borderColor="#D271FF"
             onPress={() =>
               navigation.navigate('Profile')
             }
@@ -53,6 +50,7 @@ const HomeView = ({navigation}) => {
           <GeneralButton
             imageUri={require('../assets/contacts.png')}
             disabled={false}
+            borderColor="#008037"
             onPress={() =>
               navigation.navigate('Contacts')
             }
@@ -60,17 +58,19 @@ const HomeView = ({navigation}) => {
         </View>
         <View style={styles.row}>
           <GeneralButton
-            imageUri={require('../assets/map.png')}
-            disabled={!locationPermissions}
-            onPress={() => Linking.openURL(`geo:${location.coords.latitude},${location.coords.longitude}`)}
-          />
-          <GeneralButton
             imageUri={require('../assets/camera.png')}
+            borderColor="#FF914D"
             disabled={false}
             onPress={() =>
               navigation.navigate('Camera')
             }
           />
+            <GeneralButton
+              imageUri={require('../assets/map.png')}
+              disabled={!locationPermissions}
+              borderColor="#004AAD"
+              onPress={() => Linking.openURL(`geo:${location.coords.latitude},${location.coords.longitude}`)}
+            />
         </View>
       </View>
     </View>
@@ -80,12 +80,17 @@ const HomeView = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
     justifyContent: 'center',
     alignContent: 'center',
   },
-  buttons:{
-    flex: 3,
+  batteryAndTimeContainer: {
+    flex: 2,
+    backgroundColor: '#EBF4B8',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  buttonsContainer:{
+    flex: 4,
     justifyContent: 'center',
     flexDirection: 'column',
   },
