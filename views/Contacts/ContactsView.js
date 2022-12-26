@@ -51,7 +51,7 @@ export default ContactsView = ({navigation}) => {
           <View style={styles.rowTextContainer}>
             <Text style={styles.rowText}>{contact.name}</Text>
           </View>
-          <TouchableOpacity onPress={()=>callContact(contact)} style={styles.phoneCall}>
+          <TouchableOpacity onPress={()=>callContact(contact)} style={styles.phoneCall} accessibilityLabel={`Κλήση της επαφής ${contact.name}`}>
             <Image source={require('../../assets/call.png')} style={styles.callIcon}/>
           </TouchableOpacity>
         </View>
@@ -77,14 +77,14 @@ export default ContactsView = ({navigation}) => {
       <View style={styles.buttons}>
         <TouchableOpacity
           onPress={(()=>{navigation.navigate('Add Contacts')})}
-          accessibilityLabel="Learn more about this purple button">
+          accessibilityLabel="Πάτα το κουμπί για να προσθέσεις επαφές">
           <View style={styles.button}>
             <Text style={styles.buttonText}>ΠΡΟΣΘΗΚΗ ΕΠΑΦΩΝ</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={clearSavedContacts}
-          accessibilityLabel="Learn more about this purple button">
+          accessibilityLabel="Διαγραφή των αποθηκευμένων επαφών στην εφαρμογή">
           <View style={styles.button}>
             <Text style={styles.buttonText}>ΔΙΓΑΡΦΗ ΕΠΑΦΩΝ</Text>
           </View>

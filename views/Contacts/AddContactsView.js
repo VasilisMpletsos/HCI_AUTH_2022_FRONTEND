@@ -7,8 +7,8 @@ export default ContactsView = ({navigation}) => {
 
   const [contacts, setContacts] = useState(null);
 
-  const successAddToast = () => {
-    ToastAndroid.show('H EΠΑΦΗ ΠΡΟΣΤΕΘΗΚΕ!', ToastAndroid.LONG);
+  const successAddToast = (name) => {
+    ToastAndroid.show(`Η επαφή ${name} προστέθηκε!`, ToastAndroid.LONG);
   }
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default ContactsView = ({navigation}) => {
             const newContact = JSON.stringify(item);
             const newKey = "Contact" + String(countContacts+1);
             await AsyncStorage.setItem(newKey, newContact);
-            successAddToast();
+            successAddToast(item.name);
           }else{
             alert("ΔΕΝ ΜΠΟΡΕΙΣ ΝΑ ΕΧΕΙ ΠΑΡΠΑΝΩ ΑΠΟ 6 ΕΠΑΦΕΣ");
           }
@@ -48,7 +48,7 @@ export default ContactsView = ({navigation}) => {
 
   const renderRow = ({ item }) => (
     <View style={styles.row}>
-      <TouchableOpacity onPress={() => saveContact(item)}>
+      <TouchableOpacity onPress={() => saveContact(item)} accessibilityLabel={`Προσθήκη επαφής ${item.name}`}>
         <Text style={styles.rowName}>
           {item.name}
         </Text>

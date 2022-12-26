@@ -43,6 +43,7 @@ const HomeView = ({navigation}) => {
             imageUri={require('../assets/profile.png')}
             disabled={false}
             borderColor="#D271FF"
+            accessibilityLabel="Προσωπικά Στοιχεία"
             onPress={() =>
               navigation.navigate('Profile')
             }
@@ -51,6 +52,7 @@ const HomeView = ({navigation}) => {
             imageUri={require('../assets/call.png')}
             disabled={false}
             borderColor="#008037"
+            accessibilityLabel="Επαφές"
             onPress={() =>
               navigation.navigate('Contacts')
             }
@@ -60,6 +62,7 @@ const HomeView = ({navigation}) => {
           <GeneralButton
             imageUri={require('../assets/camera.png')}
             borderColor="#FF914D"
+            accessibilityLabel="Φωτογραφική"
             disabled={false}
             onPress={() =>
               navigation.navigate('Camera')
@@ -68,6 +71,7 @@ const HomeView = ({navigation}) => {
             <GeneralButton
               imageUri={require('../assets/map.png')}
               disabled={!locationPermissions}
+              accessibilityLabel="Εντόπισμός στον χάρτη"
               borderColor="#004AAD"
               onPress={() => Linking.openURL(`geo:${location.coords.latitude},${location.coords.longitude}`)}
             />

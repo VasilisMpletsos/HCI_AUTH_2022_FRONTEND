@@ -109,7 +109,7 @@ export default ProfileView = ({navigation}) => {
             {edit ? 
             <TouchableOpacity
               onPress={()=>setEdit(!edit)}
-              accessibilityLabel="Learn more about this purple button"
+              accessibilityLabel="Αποθήκευση Αλλαγών"
             >
               <View style={styles.button}>
                 <Text style={styles.buttonText}>ΑΠΟΘΗΚΕΥΣΗ ΑΛΛΑΓΩΝ</Text>
@@ -117,8 +117,8 @@ export default ProfileView = ({navigation}) => {
             </TouchableOpacity>
             :
             <TouchableOpacity
+              accessibilityLabel="Αλλαγή Στοιχείων"
               onPress={saveProfileInfo}
-              accessibilityLabel="Learn more about this purple button"
             >
               <View style={styles.button}>
                 <Text style={styles.buttonText}>ΑΛΛΑΓΗ ΣΤΟΙΧΕΙΩΝ</Text>

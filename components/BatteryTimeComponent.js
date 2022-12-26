@@ -58,12 +58,12 @@ const BatteryComponent = () => {
           {(batteryState === 1 || battery > 95) ? 
           <Fragment>
             <Image source={require('../assets/battery.png')} style={styles.image}/>
-            <Text style={styles.batteryPercentageText}>
+            <Text style={styles.batteryPercentageText} accessibilityLabel={`Η μπαταρία ειναι στο ${battery} τοίς εκατό`}>
               {battery}%
             </Text>
           </Fragment>
           : 
-          <Image source={require('../assets/batteryCharging.png')} style={styles.image}/>
+          <Image source={require('../assets/batteryCharging.png')} style={styles.image} accessibilityLabel="Η μπαταρία είναι σε κατάσταση φόρτισης"/>
           }
         </View>
       </View>

@@ -4,7 +4,7 @@
     "slug": "EasyUp",
     "version": "1.5.0",
     "orientation": "portrait",
-    "icon": "./assets/appLogo.png",
+    "icon": "./assets/appLogo.jpg",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/EasyUpLogo.png",

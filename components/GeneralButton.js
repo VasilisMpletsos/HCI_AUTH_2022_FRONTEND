@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 export default function GeneralButton(props) {
   return (
-    <TouchableOpacity disabled={props.disabled} style={{...styles.button, borderColor: props.borderColor}} onPress={props.onPress}>
+    <TouchableOpacity disabled={props.disabled} style={{...styles.button, borderColor: props.borderColor}} onPress={props.onPress} accessibilityLabel={props.accessibilityLabel}>
       <Image source={props.imageUri} style={{ flex: 1, width:'100%' }}/>
     </TouchableOpacity>
   );
