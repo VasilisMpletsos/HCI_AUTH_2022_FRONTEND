@@ -110,6 +110,7 @@ export default ProfileView = ({navigation}) => {
             <TouchableOpacity
               onPress={()=>setEdit(!edit)}
               accessibilityLabel="Αποθήκευση Αλλαγών"
+              accessibilityHint="Πάτα το κουμπί για να αποθηκεύσεις τα στοιχεία που έβαλες"
             >
               <View style={styles.button}>
                 <Text style={styles.buttonText}>ΑΠΟΘΗΚΕΥΣΗ ΑΛΛΑΓΩΝ</Text>
@@ -118,6 +119,7 @@ export default ProfileView = ({navigation}) => {
             :
             <TouchableOpacity
               accessibilityLabel="Αλλαγή Στοιχείων"
+              accessibilityHint="Πάτα το κουμπί για να αλλάξεις τα στοιχεία που είναι αποθηκευμένα"
               onPress={saveProfileInfo}
             >
               <View style={styles.button}>

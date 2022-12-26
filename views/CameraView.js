@@ -76,10 +76,10 @@ export default CameraView = () => {
         <View style={styles.container}>
           <Image source={{ uri: imageUri }} style={{ flex: 1 }} />
           <View style={styles.buttons}>
-            <TouchableOpacity style={styles.button} onPress={pickImage} accessibilityLabel="Πάτα το κουμπί για να δείς τις φωτογραφίες σου">
+            <TouchableOpacity style={styles.button} onPress={pickImage} accessibilityLabel="Άλμπουμ Φωτογραφίών" accessibilityHint="Πάτα το κουμπί για να δείς τις φωτογραφίες σου">
               <Image source={require('../assets/imageFolder.png')} style={styles.image}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={goBack} accessibilityLabel="Πάτα το κουμπί για να βγάλεις και άλλες φωτογραφίες">
+            <TouchableOpacity style={styles.button} onPress={goBack} accessibilityLabel="Πήγαινε Πίσω" accessibilityHint="Πάτα το κουμπί για να βγάλεις και άλλες φωτογραφίες">
               <Image source={require('../assets/back.png')} style={styles.image}/>
             </TouchableOpacity>
           </View>
@@ -96,13 +96,13 @@ export default CameraView = () => {
             ratio='16:9'
           />
           <View style={styles.buttons}>
-            <TouchableOpacity style={styles.button} onPress={toggleFlashlight} accessibilityLabel="Άνοιγμα κλείσιμο φακού">
+            <TouchableOpacity style={styles.button} onPress={toggleFlashlight} accessibilityLabel="Φακός" accessibilityHint="Άνοιγμα κλείσιμο φακού">
               <Image source={require('../assets/flashlight.png')} style={styles.image}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={takePicture} accessibilityLabel="Πάτα το κουμπί για να βγάλεις φωτογραφία">
+            <TouchableOpacity style={styles.button} onPress={takePicture} accessibilityLabel="Φωτογραφία" accessibilityHint="Πάτα το κουμπί για να βγάλεις φωτογραφία">
               <Image source={require('../assets/camera.png')} style={styles.image}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={toggleCamera} accessibilityLabel="Πάτα το κουμπί για ενναλαγή κάμερας">
+            <TouchableOpacity style={styles.button} onPress={toggleCamera} accessibilityLabel="Αλλαγή κάμερας" accessibilityHint="Πάτα το κουμπί για ενναλαγή κάμερας">
               <Image source={require('../assets/switch.png')} style={styles.image}/>
             </TouchableOpacity>
           </View>

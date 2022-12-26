@@ -63,7 +63,7 @@ const BatteryComponent = () => {
             </Text>
           </Fragment>
           : 
-          <Image source={require('../assets/batteryCharging.png')} style={styles.image} accessibilityLabel="Η μπαταρία είναι σε κατάσταση φόρτισης"/>
+          <Image source={require('../assets/batteryCharging.png')} style={styles.image} accessibilityLabel={`Η μπαταρία είναι σε κατάσταση φόρτισης και έχει φτάσει στο ${battery} τοίς εκατό`}/>
           }
         </View>
       </View>

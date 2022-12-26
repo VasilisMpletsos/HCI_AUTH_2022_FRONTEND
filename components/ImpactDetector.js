@@ -30,7 +30,6 @@ const ImpactDetector = () => {
        setLocationPermissions(true);
        getLocation();
      }
-     console.log('Location persmission', status)
     });
    };
 

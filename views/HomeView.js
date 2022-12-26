@@ -44,6 +44,7 @@ const HomeView = ({navigation}) => {
             disabled={false}
             borderColor="#D271FF"
             accessibilityLabel="Προσωπικά Στοιχεία"
+            accessibilityHint="Πάτα το κουμπί για να δέις τα προσωπικά σου στοιχεία"
             onPress={() =>
               navigation.navigate('Profile')
             }
@@ -53,6 +54,7 @@ const HomeView = ({navigation}) => {
             disabled={false}
             borderColor="#008037"
             accessibilityLabel="Επαφές"
+            accessibilityHint="Πάτα το κουμπί για να δείς τις συντομέυσεις επαφών σου"
             onPress={() =>
               navigation.navigate('Contacts')
             }
@@ -63,6 +65,7 @@ const HomeView = ({navigation}) => {
             imageUri={require('../assets/camera.png')}
             borderColor="#FF914D"
             accessibilityLabel="Φωτογραφική"
+            accessibilityHint="Πάτα το κουμπί για να βγάλεις φωτογραφίες"
             disabled={false}
             onPress={() =>
               navigation.navigate('Camera')

@@ -48,7 +48,7 @@ export default ContactsView = ({navigation}) => {
 
   const renderRow = ({ item }) => (
     <View style={styles.row}>
-      <TouchableOpacity onPress={() => saveContact(item)} accessibilityLabel={`Προσθήκη επαφής ${item.name}`}>
+      <TouchableOpacity onPress={() => saveContact(item)} accessibilityLabel="Προσθήκη Επαφής" accessibilityHint={`Πάτα το κουμπί για να προσθέσεις την επαφή ${item.name}`}>
         <Text style={styles.rowName}>
           {item.name}
         </Text>
