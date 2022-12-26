@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, StyleSheet, Text } from 'react-native';
@@ -8,7 +8,7 @@ import ContactsView from './views/Contacts/ContactsView';
 import AddContactsView from './views/Contacts/AddContactsView';
 import CameraView from './views/CameraView';
 import ImpactDetector from './components/ImpactDetector';
-import { Video } from 'expo-av';
+import { Video, Audio } from 'expo-av';
 import { useFonts } from 'expo-font';
 
 const Stack = createNativeStackNavigator();
@@ -28,11 +28,25 @@ export default function App() {
   );
   const video = React.useRef(null);
 
-  const clearShowIntro = ()=>{
-    setTimeout(()=>{
+  const clearShowIntro = async ()=>{
+    const sound = new Audio.Sound({
+      shouldPlay: true,
+      rate: 1.0,
+      volume: 0.5,
+      isLooping: false,
+    });
+    await sound.loadAsync(require('./assets/introSound.wav'));
+    await sound.playAsync();
+    console.log("Playing song");
+    setTimeout(()=>{  
+      sound.pauseAsync();
       setShowIntro(false);
     },3000)
   }
+
+  useEffect(()=>{
+    clearShowIntro();
+  },[])
 
   if(showIntro){
     return(
@@ -44,7 +58,6 @@ export default function App() {
             resizeMode="contain"
             shouldPlay
             isLooping={false}
-            onPlaybackStatusUpdate={clearShowIntro}
           />
       </View>
     )

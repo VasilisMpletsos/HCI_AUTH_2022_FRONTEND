@@ -37,11 +37,11 @@ export default ContactsView = ({navigation}) => {
             await AsyncStorage.setItem(newKey, newContact);
             successAddToast(item.name);
           }else{
-            alert("ΔΕΝ ΜΠΟΡΕΙΣ ΝΑ ΕΧΕΙ ΠΑΡΠΑΝΩ ΑΠΟ 6 ΕΠΑΦΕΣ");
+            alert("Δέν μπορείς να έχεις παραπάνω απο 6 αποθηκεύμενες συντομεύσεις");
           }
         });
       } catch (e) {
-        alert("ΚΑΤΙ ΠΗΓΕ ΣΤΡΑΒΑ");
+        alert("Ούπς, κάτι πήγε στραβά");
       }
     }
   }
