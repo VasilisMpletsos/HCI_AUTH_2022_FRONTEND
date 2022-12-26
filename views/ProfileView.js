@@ -136,10 +136,10 @@ export default ProfileView = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#ffffff',
   },
   row: {
     flex: 1,
