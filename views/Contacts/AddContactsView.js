@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, SafeAreaView, FlatList, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, FlatList, View, TouchableOpacity, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Contacts from 'expo-contacts';
 
@@ -7,12 +7,17 @@ export default ContactsView = ({navigation}) => {
 
   const [contacts, setContacts] = useState(null);
 
+  const successAddToast = () => {
+    ToastAndroid.show('H EΠΑΦΗ ΠΡΟΣΤΕΘΗΚΕ!', ToastAndroid.LONG);
+  }
+
   useEffect(() => {
     (async () => {
       Contacts.requestPermissionsAsync().then(({status})=>{
         if (status === 'granted') {
           Contacts.getContactsAsync({fields: [Contacts.Fields.PhoneNumbers]}).then(({data})=>{
             if(data.length > 0) {
+              data = data.filter(contact => contact?.phoneNumbers && contact.phoneNumbers[0]?.number)
               setContacts(data);
             }
           });
@@ -30,13 +35,13 @@ export default ContactsView = ({navigation}) => {
             const newContact = JSON.stringify(item);
             const newKey = "Contact" + String(countContacts+1);
             await AsyncStorage.setItem(newKey, newContact);
-            alert('Contact Added');
+            successAddToast();
           }else{
-            alert("Can't have more than 6 contacts");
+            alert("ΔΕΝ ΜΠΟΡΕΙΣ ΝΑ ΕΧΕΙ ΠΑΡΠΑΝΩ ΑΠΟ 6 ΕΠΑΦΕΣ");
           }
         });
       } catch (e) {
-        alert("Couldn't save contact");
+        alert("ΚΑΤΙ ΠΗΓΕ ΣΤΡΑΒΑ");
       }
     }
   }
@@ -59,8 +64,8 @@ export default ContactsView = ({navigation}) => {
         renderItem={renderRow}
         keyExtractor={item => item.id}
       /> : 
-      <Text>
-        There are not Contacts to be shown
+      <Text style={styles.warningText}>
+        ΔΕΝ ΥΠΑΡΧΟΥΝ ΔΙΑΘΕΣΙΜΕΣ ΕΠΑΦΕΣ.
       </Text>
       }
       
@@ -86,5 +91,11 @@ const styles = StyleSheet.create({
   },
   rowName: {
     fontSize: 40,
+  },
+  warningText: {
+    fontSize: 30,
+    fontFamily: 'OpenSans-Medium',
+    margin: 10,
+    textAlign: 'left'
   },
 });

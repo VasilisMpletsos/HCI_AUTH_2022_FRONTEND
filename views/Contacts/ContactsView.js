@@ -75,11 +75,19 @@ export default ContactsView = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.buttons}>
-        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('Add Contacts')}}>
-          <Image source={require('../../assets/add.png')} style={styles.image}/>
+        <TouchableOpacity
+          onPress={(()=>{navigation.navigate('Add Contacts')})}
+          accessibilityLabel="Learn more about this purple button">
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>ΠΡΟΣΘΗΚΗ ΕΠΑΦΩΝ</Text>
+          </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={clearSavedContacts}>
-          <Image source={require('../../assets/delete.png')} style={styles.image}/>
+        <TouchableOpacity
+          onPress={clearSavedContacts}
+          accessibilityLabel="Learn more about this purple button">
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>ΔΙΓΑΡΦΗ ΕΠΑΦΩΝ</Text>
+          </View>
         </TouchableOpacity>
       </View>
       <View style={styles.savedContacts}>
@@ -89,8 +97,8 @@ export default ContactsView = ({navigation}) => {
           {renderRow()}
         </View>
          :<View style={styles.noContactsView}>
-            <Text style={styles.rowName}>
-              There are not Contacts to be shown
+            <Text style={styles.warningText}>
+              ΔΕΝ ΥΠΑΡΧΟΥΝ ΔΙΑΘΕΣΙΜΕΣ ΕΠΑΦΕΣ.
             </Text>
          </View> 
         }
@@ -120,6 +128,12 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'OpenSans-Medium'
   },
+  warningText: {
+    fontSize: 30,
+    fontFamily: 'OpenSans-Medium',
+    margin: 10,
+    textAlign: 'left'
+  },
   phoneCall:{
     flex:1,
     justifyContent: 'center',
@@ -140,23 +154,23 @@ const styles = StyleSheet.create({
   },
   buttons:{
     position: 'absolute',
-    bottom: 10,
+    bottom: 30,
     height: 100,
     width: '100%',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-evenly'
   },
-  button: {
-    width: 80,
-    height: 80,
-    borderRadius: 20,
-    padding: 2,
-    backgroundColor: 'white',
+  button:{
+    height: 50,
+    padding: 10,
+    margin:30,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#C8DFF4'
   },
-  image: {
-    flex: 1,
-    width: null,
-    height: null,
-    resizeMode: 'contain'
-  }
+  buttonText:{
+    fontSize: 18,
+    fontFamily: 'OpenSans-Bold',
+  },
 });
