@@ -37,7 +37,6 @@ export default function App() {
     });
     await sound.loadAsync(require('./assets/introSound.wav'));
     await sound.playAsync();
-    console.log("Playing song");
     setTimeout(()=>{  
       sound.pauseAsync();
       setShowIntro(false);

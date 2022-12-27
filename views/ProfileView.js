@@ -34,9 +34,11 @@ export default ProfileView = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.row}>
-          <Text style={styles.title}>
-            Ονοματεπώνυμο
-          </Text> 
+          <View style={styles.textHeaderContainer}>
+            <Text style={styles.title}>
+              Ονοματεπώνυμο
+            </Text> 
+          </View>
           {
           edit ? 
           <TextInput
@@ -52,9 +54,11 @@ export default ProfileView = ({navigation}) => {
         </View>
 
         <View style={styles.row}>
-          <Text style={styles.title}>
-            Αριθμός Ταυτότητας
-          </Text> 
+          <View style={styles.textHeaderContainer}>
+            <Text style={styles.title}>
+              Αριθμός Ταυτότητας
+            </Text> 
+          </View>
           {
           edit ? 
           <TextInput
@@ -70,9 +74,11 @@ export default ProfileView = ({navigation}) => {
         </View>
         
         <View style={styles.row}>
-          <Text style={styles.title}>
-          Κινητό Τηλέφωνο
-          </Text> 
+          <View style={styles.textHeaderContainer}>
+            <Text style={styles.title}>
+            Κινητό Τηλέφωνο
+            </Text> 
+          </View>
           {
           edit ? 
           <TextInput
@@ -88,9 +94,11 @@ export default ProfileView = ({navigation}) => {
         </View>
 
         <View style={styles.row}>
-          <Text style={styles.title}>
-            Διεύθυνση Κατοικίας
-          </Text> 
+          <View style={styles.textHeaderContainer}>
+            <Text style={styles.title}>
+              Διεύθυνση Κατοικίας
+            </Text> 
+          </View>
           {
           edit ? 
           <TextInput
@@ -147,9 +155,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  textHeaderContainer:{
+    width: '90%',
+    justifyContent: 'center',
+    borderBottomWidth: 2,
+    marginBottom: 10
+  },
   title: {
-    fontSize: 30,
-    textDecorationLine: 'underline',
+    fontSize: 25,
     fontFamily: 'OpenSans-Medium'
   },
   text: {
@@ -159,9 +172,10 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 25,
     fontWeight: '500',
-    padding: 5, 
-    borderColor: 'gray', 
-    borderWidth: 2
+    padding: 10, 
+    borderRadius: 12,
+    textAlign: 'center',
+    backgroundColor: '#E5E5E5'
   },  
   button:{
     height: 50,

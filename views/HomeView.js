@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Linking, Text } from 'react-native';
 import GeneralButton from '../components/GeneralButton';
 import BatteryTimeComponent from '../components/BatteryTimeComponent';
+import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 
 const HomeView = ({navigation}) => {
   const [location, setLocation] = useState(null);
   const [locationPermissions, setLocationPermissions] = useState(false);
+  const [galleryPermission, setGalleryPermission] = ImagePicker.useMediaLibraryPermissions();
   let locationInterval;
 
   const getLocation = async() => {
@@ -28,8 +30,32 @@ const HomeView = ({navigation}) => {
    });
   };
 
+  const getGalleryPermissions = () => {
+    ImagePicker.getCameraPermissionsAsync().then(permission=>{
+      setGalleryPermission(permission.status.granted);
+    });
+  }
+
+  const pickImage = async () => {
+    if(galleryPermission){
+      ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 1,
+      }).then(result=>{
+        if (!result.canceled) {
+          setImageUri(result.assets);
+        }
+      });
+    }else{
+      alert('Gallery permission is needed.');
+    }
+  };
+
   useEffect(() => {
     getLocationPermissions();
+    getGalleryPermissions();
   }, []);
 
   return (
@@ -72,12 +98,22 @@ const HomeView = ({navigation}) => {
             }
           />
             <GeneralButton
-              imageUri={require('../assets/map.png')}
-              disabled={!locationPermissions}
-              accessibilityLabel="Εντόπισμός στον χάρτη"
-              borderColor="#004AAD"
-              onPress={() => Linking.openURL(`geo:${location.coords.latitude},${location.coords.longitude}`)}
+              imageUri={require('../assets/imageFolder.png')}
+              disabled={!galleryPermission}
+              accessibilityLabel="Άλμπουμ Φωτογραφιών" 
+              accessibilityHint="Πάτα το κουμπί για να δείς τις φωτογραφίες σου"
+              borderColor="#FE2020"
+              onPress={pickImage}
             />
+        </View>
+        <View style={styles.row}>
+          <GeneralButton
+            imageUri={require('../assets/map.png')}
+            disabled={!locationPermissions}
+            accessibilityLabel="Εντόπισμός στον χάρτη"
+            borderColor="#004AAD"
+            onPress={() => Linking.openURL(`geo:${location.coords.latitude},${location.coords.longitude}`)}
+          />
         </View>
       </View>
     </View>
