@@ -26,6 +26,7 @@ const MyHeader = ({navigation, route, options, back }) => {
 
 const styles = StyleSheet.create({
   header:{
+    marginTop: 0,
     width: '100%',
     height: 70,
     backgroundColor: '#EBF4B8',
