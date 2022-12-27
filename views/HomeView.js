@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#EBF4B8',
     justifyContent: 'center',
     alignContent: 'center',
-    paddingTop: 25,
   },
   buttonsContainer:{
     flex: 4,

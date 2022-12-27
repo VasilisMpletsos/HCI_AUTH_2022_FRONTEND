@@ -86,7 +86,7 @@ const ImpactDetector = () => {
   }
 
   useEffect(() => {
-    if(Math.max(x,y,z) > 5 && !impact){
+    if(Math.max(x,y,z) > 4 && !impact){
       sendImpactEmergencyMessage();
       setImpact(true);
       setTimeout(()=>{
