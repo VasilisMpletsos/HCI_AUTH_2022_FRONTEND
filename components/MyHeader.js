@@ -5,8 +5,6 @@ const MyHeader = ({navigation, route, options, back }) => {
 
   const title = getHeaderTitle(options, route.name);
 
-  console.log(route);
-
   return (
     <View style={styles.header}>
       {route.name !== "Home" ? 
@@ -31,7 +29,7 @@ const MyHeader = ({navigation, route, options, back }) => {
 const styles = StyleSheet.create({
   header:{
     width: '100%',
-    height: 70,
+    height: 50,
     flexDirection: 'row',
     borderBottomWidth: 1,
     backgroundColor: '#EBF4B8',

@@ -125,8 +125,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
-    backgroundColor: 'white',
-    paddingTop: 20,
   },
   batteryAndTimeContainer: {
     flex: 2,

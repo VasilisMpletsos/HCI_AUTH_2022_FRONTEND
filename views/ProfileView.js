@@ -1,8 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getHeaderTitle } from '@react-navigation/elements';
-import MyHeader from '../components/MyHeader';
 
 
 export default ProfileView = ({navigation}) => {
@@ -14,7 +12,7 @@ export default ProfileView = ({navigation}) => {
   });
   const [edit, setEdit] = useState(false);
 
-  const saveProfileInfo = () => {
+  const saveProfileInfo = async () => {
     const profileInfo = JSON.stringify(userData);
     AsyncStorage.setItem("profileInfo2", profileInfo).then(()=>{
       setEdit(!edit);
@@ -118,7 +116,7 @@ export default ProfileView = ({navigation}) => {
         <View style={styles.row}>
             {edit ? 
             <TouchableOpacity
-              onPress={()=>setEdit(!edit)}
+              onPress={saveProfileInfo}
               accessibilityLabel="Αποθήκευση Αλλαγών"
               accessibilityHint="Πάτα το κουμπί για να αποθηκεύσεις τα στοιχεία που έβαλες"
             >
@@ -130,7 +128,7 @@ export default ProfileView = ({navigation}) => {
             <TouchableOpacity
               accessibilityLabel="Αλλαγή Στοιχείων"
               accessibilityHint="Πάτα το κουμπί για να αλλάξεις τα στοιχεία που είναι αποθηκευμένα"
-              onPress={saveProfileInfo}
+              onPress={()=>setEdit(!edit)}
             >
               <View style={styles.button}>
                 <Text style={styles.buttonText}>ΑΛΛΑΓΗ ΣΤΟΙΧΕΙΩΝ</Text>

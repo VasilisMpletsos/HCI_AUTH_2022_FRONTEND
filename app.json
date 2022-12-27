@@ -2,7 +2,7 @@
   "expo": {
     "name": "EasyUp",
     "slug": "EasyUp",
-    "version": "1.8.0",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/appLogo.jpg",
     "userInterfaceStyle": "light",

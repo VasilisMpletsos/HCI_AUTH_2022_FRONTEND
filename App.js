@@ -72,7 +72,7 @@ export default function App() {
           headerMode: 'screen',
           }}
         >
-          <Stack.Screen name="Home" component={HomeView} options={{title: 'Αρχική Οθόνη', headerShown: false}}/>
+          <Stack.Screen name="Home" component={HomeView} options={{title: 'Αρχική Οθόνη'}}/>
           <Stack.Screen name="Profile" component={ProfileView} options={{title: 'Προσωπικά Στοιχεία'}}/>
           <Stack.Screen name="Contacts" component={ContactsView} options={{title: 'Επαφές'}}/>
           <Stack.Screen name="Add Contacts" component={AddContactsView} options={{title: 'Προσθήκη επαφών'}}/>
