@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SMS from 'expo-sms';
 import * as Location from 'expo-location';
 import call from 'react-native-phone-call';
@@ -14,7 +15,29 @@ const ImpactDetector = () => {
   const [impact, setImpact] = useState(false);
   const [subscription, setSubscription] = useState(null);
   const [location, setLocation] = useState(null);
+  const [emergencyContact, setEmergencyContact] = useState(null);
+  const [personalName, setPersonalName] = useState('');
   const [locationPermissions, setLocationPermissions] = useState(false);
+
+  const getSavedContacts = async () => {
+    try {
+      AsyncStorage.getItem('Contact1', async (error, result)=>{
+        const contact = JSON.parse(result);
+        setEmergencyContact(contact);
+      });
+    } catch(e) {
+      console.log("Couldn't retrieve any contacts");
+    }
+  }
+
+  const getSelfData = async() => {
+    AsyncStorage.getItem("profileInfo2").then(profileInfo=>{
+      if(profileInfo){
+        const data = JSON.parse(profileInfo);
+        setPersonalName(data.username);
+      }
+    });
+  }
 
   const getLocation = async() => {
     const personLocation = await Location.getCurrentPositionAsync({});
@@ -46,15 +69,17 @@ const ImpactDetector = () => {
 
   useEffect(()=>{
     getLocationPermissions();
+    getSelfData();
+    getSavedContacts();
     _subscribe();
     return () => _unsubscribe;
   },[])
 
   const sendImpactEmergencyMessage = async () => {
     await getLocation();
-    const isAvailable = await SMS.isAvailableAsync();
-    if (isAvailable) {
-      await SMS.sendSMSAsync('166',`Συμβάν έκτακτης ανάγκης στην τοποθεσία at ${location.coords.latitude},${location.coords.longitude}`);
+    const smsServiceAvailable = await SMS.isAvailableAsync();
+    if (smsServiceAvailable && locationPermissions && emergencyContact?.phoneNumbers[0]?.number) {
+      await SMS.sendSMSAsync(`${emergencyContact?.phoneNumbers[0]?.number}`,`Συμβάν έκτακτης ανάγκης στην τοποθεσία ${location.coords.latitude},${location.coords.longitude} - ${personalName}`);
     }else{
       call({number: '166', prompt: false}).catch(console.error);
     }
