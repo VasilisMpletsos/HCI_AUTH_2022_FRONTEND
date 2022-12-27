@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     backgroundColor: 'white',
+    paddingTop: 20,
   },
   batteryAndTimeContainer: {
     flex: 2,

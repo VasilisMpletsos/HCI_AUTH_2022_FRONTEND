@@ -65,8 +65,13 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <NavigationContainer>
-        <Stack.Navigator >
+      <NavigationContainer style={styles.container}>
+        <Stack.Navigator 
+          screenOptions={{
+          header: MyHeader,
+          headerMode: 'screen',
+          }}
+        >
           <Stack.Screen name="Home" component={HomeView} options={{title: 'Αρχική Οθόνη', headerShown: false}}/>
           <Stack.Screen name="Profile" component={ProfileView} options={{title: 'Προσωπικά Στοιχεία'}}/>
           <Stack.Screen name="Contacts" component={ContactsView} options={{title: 'Επαφές'}}/>
@@ -82,6 +87,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: '100%',
+    borderStartColor: 'white'
   },
   video: {
     flex: 1,

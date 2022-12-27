@@ -2,7 +2,7 @@
   "expo": {
     "name": "EasyUp",
     "slug": "EasyUp",
-    "version": "1.7.0",
+    "version": "1.8.0",
     "orientation": "portrait",
     "icon": "./assets/appLogo.jpg",
     "userInterfaceStyle": "light",
@@ -19,6 +19,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#EBF4B8"
     },
     "android": {
       "adaptiveIcon": {

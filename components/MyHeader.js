@@ -5,8 +5,11 @@ const MyHeader = ({navigation, route, options, back }) => {
 
   const title = getHeaderTitle(options, route.name);
 
+  console.log(route);
+
   return (
     <View style={styles.header}>
+      {route.name !== "Home" ? 
       <TouchableOpacity
         onPress={navigation.goBack}
         accessibilityLabel="Πίσω"
@@ -16,7 +19,8 @@ const MyHeader = ({navigation, route, options, back }) => {
           <Image source={require('../assets/back2.png')} style={styles.image}/>
           <Text style={styles.buttonText}>Πίσω</Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity>:null
+      }
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
       </View>
@@ -26,11 +30,11 @@ const MyHeader = ({navigation, route, options, back }) => {
 
 const styles = StyleSheet.create({
   header:{
-    marginTop: 0,
     width: '100%',
     height: 70,
-    backgroundColor: '#EBF4B8',
     flexDirection: 'row',
+    borderBottomWidth: 1,
+    backgroundColor: '#EBF4B8',
     paddingBottom: 10,
   },
   title: {
