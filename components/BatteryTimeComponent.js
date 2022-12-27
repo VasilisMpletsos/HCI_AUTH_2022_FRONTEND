@@ -58,7 +58,7 @@ const BatteryComponent = () => {
           {(batteryState === 1 || battery > 95) ? 
           <Fragment>
             <Image source={require('../assets/battery.png')} style={styles.image}/>
-            <Text style={styles.batteryPercentageText} accessibilityLabel={`Η μπαταρία ειναι στο ${battery} τοίς εκατό`}>
+            <Text style={{...styles.batteryPercentageText, color: batteryState === 2 ? 'green' : 'white'}} accessibilityLabel={`Η μπαταρία ειναι στο ${battery} τοίς εκατό`}>
               {battery}%
             </Text>
           </Fragment>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     position: 'absolute',
-    fontFamily: 'OpenSans-Bold'
+    fontFamily: 'OpenSans-Bold',
   },
 });
 

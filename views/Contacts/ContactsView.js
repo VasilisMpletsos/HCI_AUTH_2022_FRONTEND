@@ -97,6 +97,10 @@ export default ContactsView = ({navigation}) => {
         showContacts ?
         <View>
           {renderRow()}
+          <View style={styles.emergencyContactContaienr}>
+            <Text style={styles.emergencyContactTitle}>Επαφή Επείγουσας Ανάγκης</Text>
+            <Text style={styles.emergencyContactName}>{savedContacts[0].name}</Text>
+          </View>
         </View>
          :<View style={styles.noContactsView}>
             <Text style={styles.warningText}>
@@ -116,6 +120,26 @@ const styles = StyleSheet.create({
   },
   savedContacts:{
     flex: 5,
+  },
+  emergencyContactContaienr: {
+    flexDirection: 'column',
+    height: 100,
+    marginTop: 10,
+    marginRight: 10,
+    marginLeft: 10,
+    borderRadius: 12,
+    backgroundColor: '#FF5757',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  emergencyContactTitle:{
+    fontSize: 22,
+    fontFamily: 'OpenSans-Medium',
+    textDecorationLine: 'underline'
+  },
+  emergencyContactName:{
+    fontSize: 25,
+    fontFamily: 'OpenSans-Bold',
   },
   row: {
     padding: 5,
