@@ -88,7 +88,7 @@ export default ContactsView = ({navigation}) => {
           accessibilityLabel="Διαγραφή Επαφών"
           accessibilityHint="Πάτα το κουμπί για να διαγράψεις τις αποθηκευμένες συντομεύσεις επαφών στην εφαρμογή">
           <View style={styles.button}>
-            <Text style={styles.buttonText}>ΔΙΓΑΡΦΗ ΕΠΑΦΩΝ</Text>
+            <Text style={styles.buttonText}>ΔΙΓΑΡΑΦΗ ΕΠΑΦΩΝ</Text>
           </View>
         </TouchableOpacity>
       </View>

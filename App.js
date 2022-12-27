@@ -10,6 +10,7 @@ import CameraView from './views/CameraView';
 import ImpactDetector from './components/ImpactDetector';
 import { Video, Audio } from 'expo-av';
 import { useFonts } from 'expo-font';
+import MyHeader from './components/MyHeader';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,9 +66,14 @@ export default function App() {
   return (
     <View style={{flex: 1}}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeView} options={{title: 'Αρχική Οθόνη'}}/>
-          <Stack.Screen name="Profile" component={ProfileView} options={{title: 'Προσωπικά Στοιχεία'}}/>
+        <Stack.Navigator 
+          screenOptions={{
+          header: MyHeader,
+          headerMode: 'screen',
+          }}
+        >
+          <Stack.Screen name="Home" component={HomeView} options={{title: 'Αρχική Οθόνη', headerShown: false}}/>
+          <Stack.Screen name="Profile" component={ProfileView} options={{title: 'Προσωπικά Στοιχεία', cardStyle: 'blue'}}/>
           <Stack.Screen name="Contacts" component={ContactsView} options={{title: 'Επαφές'}}/>
           <Stack.Screen name="Add Contacts" component={AddContactsView} options={{title: 'Προσθήκη επαφών'}}/>
           <Stack.Screen name="Camera" component={CameraView} options={{title: 'Φωτογραφική'}}/>

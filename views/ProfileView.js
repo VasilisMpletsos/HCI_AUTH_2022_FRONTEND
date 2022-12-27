@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getHeaderTitle } from '@react-navigation/elements';
+import MyHeader from '../components/MyHeader';
 
 
 export default ProfileView = ({navigation}) => {
@@ -138,13 +140,16 @@ export default ProfileView = ({navigation}) => {
         </View>
       </ScrollView>
     </SafeAreaView>
-    );
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  headerStyle: {
+    height: 80, // Specify the height of your custom header
   },
   scrollView: {
     flex: 1,

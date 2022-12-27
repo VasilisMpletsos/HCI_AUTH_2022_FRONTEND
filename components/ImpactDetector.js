@@ -54,7 +54,7 @@ const ImpactDetector = () => {
     await getLocation();
     const isAvailable = await SMS.isAvailableAsync();
     if (isAvailable) {
-      await SMS.sendSMSAsync('166',`Impact Detected at ${location.coords.latitude},${location.coords.longitude}`);
+      await SMS.sendSMSAsync('166',`Συμβάν έκτακτης ανάγκης στην τοποθεσία at ${location.coords.latitude},${location.coords.longitude}`);
     }else{
       call({number: '166', prompt: false}).catch(console.error);
     }
